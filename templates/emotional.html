@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="image-container">
+  <div class="image-wrapper">
+    <img src="{% static 'ชอบ.jpg' %}" alt="ชอบ" data-video="{% static 'ชอบ.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'รัก.jpg' %}" alt="รัก" data-video="{% static 'รัก.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'อยาก.jpg' %}" alt="อยาก" data-video="{% static 'อยาก.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'อิ่ม.jpg' %}" alt="อิ่ม" data-video="{% static 'อิ่ม.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'โกรธ.png' %}" alt="โกรธ" data-video="{% static 'โกรธ.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'คิดถึง.png' %}" alt="คิดถึง" data-video="{% static 'คิดถึง.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'ดีใจ.png' %}" alt="ดีใจ" data-video="{% static 'ดีใจ.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'มีความสุข.png' %}" alt="มีความสุข" data-video="{% static 'มีความสุข.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'เศร้า.png' %}" alt="เศร้า" data-video="{% static 'เศร้า.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'เสียใจ.png' %}" alt="อิ่ม" data-video="{% static 'อิ่ม.mp4' %}">
+  </div>
+</div>
+
+<div class="popup-container">
+  <div class="popup-wrapper">
+    <h2 class="popup-title"></h2>
+    <video controls></video>
+    <button class="popup-close-btn">X</button>
+  </div>
+</div>
+
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const popupContainer = document.querySelector('.popup-container');
+  popupContainer.style.display = 'none';
+});
+
+const images = document.querySelectorAll('.image-wrapper');
+const popupContainer = document.querySelector('.popup-container');
+const popupTitle = document.querySelector('.popup-title');
+const popupVideo = document.querySelector('.popup-wrapper video');
+const popupCloseBtn = document.querySelector('.popup-close-btn');
+
+images.forEach((image) => {
+  image.addEventListener('click', () => {
+    const videoSrc = image.querySelector('img').dataset.video;
+    const videoName = image.querySelector('img').alt;
+    popupTitle.textContent = videoName;
+    popupVideo.src = videoSrc;
+    popupContainer.style.display = 'flex';
+  });
+});
+
+popupCloseBtn.addEventListener('click', () => {
+  popupVideo.pause();
+  popupContainer.style.display = 'none';
+});
+
+popupContainer.addEventListener('click', (event) => {
+  if (event.target === popupContainer) {
+    popupVideo.pause();
+    popupContainer.style.display = 'none';
+  }
+});
+
+</script>
+{% endblock %}
