@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="image-container">
+  <div class="image-wrapper">
+    <img src="{% static 'น้องชาย.png' %}" alt="น้องชาย" data-video="{% static 'น้องชาย.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'พ่อ.png' %}" alt="พ่อ" data-video="{% static 'พ่อ.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'พี่ชาย.png' %}" alt="พี่ชาย" data-video="{% static 'พี่ชาย.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'แม่.png' %}" alt="แม่" data-video="{% static 'แม่.mp4' %}">
+  </div>
+  <div class="image-wrapper">
+    <img src="{% static 'ลูก.png' %}" alt="ลูก" data-video="{% static 'ลูก.mp4' %}">
+  </div>
+</div>
+
+<div class="popup-container">
+  <div class="popup-wrapper">
+    <h2 class="popup-title"></h2>
+    <video controls></video>
+    <button class="popup-close-btn">X</button>
+  </div>
+</div>
+
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const popupContainer = document.querySelector('.popup-container');
+  popupContainer.style.display = 'none';
+});
+
+const images = document.querySelectorAll('.image-wrapper');
+const popupContainer = document.querySelector('.popup-container');
+const popupTitle = document.querySelector('.popup-title');
+const popupVideo = document.querySelector('.popup-wrapper video');
+const popupCloseBtn = document.querySelector('.popup-close-btn');
+
+images.forEach((image) => {
+  image.addEventListener('click', () => {
+    const videoSrc = image.querySelector('img').dataset.video;
+    const videoName = image.querySelector('img').alt;
+    popupTitle.textContent = videoName;
+    popupVideo.src = videoSrc;
+    popupContainer.style.display = 'flex';
+  });
+});
+
+popupCloseBtn.addEventListener('click', () => {
+  popupVideo.pause();
+  popupContainer.style.display = 'none';
+});
+
+popupContainer.addEventListener('click', (event) => {
+  if (event.target === popupContainer) {
+    popupVideo.pause();
+    popupContainer.style.display = 'none';
+  }
+});
+
+</script>
+{% endblock %}
